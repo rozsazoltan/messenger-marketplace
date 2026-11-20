@@ -19,6 +19,26 @@
       "version": "1.0.2",
       "style": "plugins/message-tools/style.css",
       "script": "plugins/message-tools/index.js"
+    },
+    {
+      "id": "hu",
+      "name": "Magyar",
+      "description": "Hungarian interface language for Messenger Next.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "category": "language",
+      "lang": "plugins/hu/lang.json"
+    },
+    {
+      "id": "de",
+      "name": "Deutsch",
+      "description": "German interface language for Messenger Next.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "category": "language",
+      "lang": "plugins/de/lang.json"
     }
   ]
 }
