@@ -8,7 +8,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
-      "style": "plugins/midnight/style.css"
+      "style": "themes/midnight/style.css"
     },
     {
       "id": "message-tools",
@@ -28,7 +28,7 @@
       "official": true,
       "version": "1.0.0",
       "category": "language",
-      "lang": "plugins/hu/lang.json"
+      "lang": "locales/hu/lang.json"
     },
     {
       "id": "de",
@@ -38,7 +38,7 @@
       "official": true,
       "version": "1.0.0",
       "category": "language",
-      "lang": "plugins/de/lang.json"
+      "lang": "locales/de/lang.json"
     }
   ]
 }

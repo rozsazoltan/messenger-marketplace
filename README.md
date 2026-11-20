@@ -8,11 +8,17 @@ paths listed there.
 
 ```
 index.json
-plugins/<id>/style.css     optional
 plugins/<id>/index.js      optional
+plugins/<id>/style.css     optional
 plugins/<id>/README.md     optional
+themes/<id>/style.css      one stylesheet per theme
+locales/<code>/lang.json   one language pack per locale
 LICENSE
 ```
+
+Directories follow the entry `category`: themes live under `themes/`, language
+packs under `locales/`, and everything else under `plugins/`. The app only reads
+the paths in `index.json`, so an entry keeps working wherever its files sit.
 
 ## index.json
 
@@ -27,7 +33,7 @@ LICENSE
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
-      "style": "plugins/midnight/style.css"
+      "style": "themes/midnight/style.css"
     }
   ]
 }
@@ -86,7 +92,8 @@ switched off without removing them.
 
 ## Adding a plugin
 
-1. Add a folder under `plugins/<id>/`.
+1. Add a folder under `plugins/<id>/`, `themes/<id>/` or `locales/<code>/`
+   depending on the entry category.
 2. Add the entry to `index.json`.
 3. Open a pull request describing what the plugin does and what it touches.
 
