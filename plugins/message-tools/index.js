@@ -11,6 +11,7 @@
 
   let composer = null;
   let counter = null;
+  let scheduled = false;
 
   function readLength() {
     if (!composer) return 0;
@@ -21,14 +22,27 @@
   function render() {
     if (!counter) return;
     const length = readLength();
-    counter.textContent = `${length} / ${LIMIT}`;
-    counter.dataset.state = length > LIMIT ? 'over' : 'ok';
+    // Only write when the value changes: assigning textContent replaces the
+    // text node, which would otherwise feed the observer below forever.
+    const next = `${length} / ${LIMIT}`;
+    if (counter.textContent !== next) counter.textContent = next;
+    const state = length > LIMIT ? 'over' : 'ok';
+    if (counter.dataset.state !== state) counter.dataset.state = state;
   }
 
   function attach() {
     const element = document.querySelector(COMPOSER_SELECTOR);
-    if (!element) return;
-    if (element === composer) {
+    if (!element) {
+      // The composer only exists while a thread is open. Nothing to do: the
+      // observer re-runs attach() when one appears.
+      if (composer && !composer.isConnected) {
+        if (counter && counter.isConnected) counter.remove();
+        composer = null;
+        counter = null;
+      }
+      return;
+    }
+    if (element === composer && counter && counter.isConnected) {
       render();
       return;
     }
@@ -49,7 +63,24 @@
     render();
   }
 
-  const observer = new MutationObserver(() => attach());
+  // Coalesce bursts into one pass per animation frame, and ignore the mutations
+  // this plugin causes itself.
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      attach();
+    });
+  }
+
+  const observer = new MutationObserver((records) => {
+    for (const record of records) {
+      if (counter && record.target instanceof Node && counter.contains(record.target)) continue;
+      schedule();
+      return;
+    }
+  });
   observer.observe(document.body, { childList: true, subtree: true });
   attach();
 })();
