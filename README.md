@@ -43,10 +43,29 @@ LICENSE
 | `version` | yes | Semver string. |
 | `style` | no | Repo-relative path to a CSS file. |
 | `script` | no | Repo-relative path to a JS file. |
+| `category` | no | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`. |
+| `lang` | language only | Repo-relative path to the language pack JSON. |
 
-At least one of `style` and `script` must be present. Paths are resolved
-against the repository root on the `main` branch, so relative paths work as
-written here.
+At least one of `style` and `script` must be present, unless `category` is
+`language`, where `lang` replaces them. Paths are resolved against the
+repository root on the `main` branch, so relative paths work as written here.
+
+## Language packs
+
+A language pack is declarative JSON and never runs code:
+
+```json
+{
+  "schemaVersion": 1,
+  "locale": "hu",
+  "name": "Magyar",
+  "strings": { "modal.about.title": "Névjegy" }
+}
+```
+
+`locale` must equal the plugin `id` and `strings` maps the app's message keys to
+translated text. A missing key falls back to English one lookup at a time, so a
+partial pack is usable. Brand and product names stay untranslated.
 
 ## Trust model
 
