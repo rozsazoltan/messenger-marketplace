@@ -1,0 +1,14 @@
+.message-tools-counter {
+  align-self: flex-end;
+  margin: 0 12px 6px auto;
+  font-size: 11px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  color: #8a8d91;
+  pointer-events: none;
+}
+
+.message-tools-counter[data-state='over'] {
+  color: #e41e3f;
+  font-weight: 600;
+}

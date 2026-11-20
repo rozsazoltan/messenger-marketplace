@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "plugins": [
+    {
+      "id": "midnight",
+      "name": "Midnight",
+      "description": "A quiet dark theme with deep surfaces and soft text contrast.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "style": "plugins/midnight/style.css"
+    },
+    {
+      "id": "message-tools",
+      "name": "Message Tools",
+      "description": "Adds a live character counter under the message composer.",
+      "author": "rozsazoltan",
+      "official": false,
+      "version": "1.0.0",
+      "style": "plugins/message-tools/style.css",
+      "script": "plugins/message-tools/index.js"
+    }
+  ]
+}

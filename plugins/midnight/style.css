@@ -1,0 +1,55 @@
+/* Midnight - sample official theme plugin.
+   Overrides only surfaces and text colours so the layout stays untouched. */
+
+:root {
+  color-scheme: dark;
+  --midnight-bg: #0b0f14;
+  --midnight-surface: #141a21;
+  --midnight-text: #e8edf4;
+  --midnight-muted: #9aa6b4;
+  --midnight-line: #222b35;
+}
+
+html,
+body {
+  background: var(--midnight-bg) !important;
+  color: var(--midnight-text) !important;
+}
+
+[role='banner'],
+[role='navigation'],
+[role='main'],
+[role='complementary'],
+[role='grid'] {
+  background: var(--midnight-bg) !important;
+  color: var(--midnight-text) !important;
+}
+
+[role='main'] a,
+[role='main'] span,
+[role='main'] div[dir='auto'] {
+  color: var(--midnight-text);
+  border-color: var(--midnight-line);
+}
+
+[role='main'] [role='separator'],
+[role='main'] hr {
+  border-color: var(--midnight-line) !important;
+}
+
+[contenteditable='true'],
+[role='textbox'],
+input,
+textarea {
+  background: var(--midnight-surface) !important;
+  color: var(--midnight-text) !important;
+  caret-color: var(--midnight-text);
+}
+
+::placeholder {
+  color: var(--midnight-muted) !important;
+}
+
+* {
+  scrollbar-color: var(--midnight-line) transparent;
+}
