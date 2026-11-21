@@ -261,6 +261,12 @@
     "marketplace.error.empty_file": "Plugin-Datei ist leer.",
     "marketplace.error.file_type": "Wählen Sie eine CSS- oder JS-Datei.",
     "marketplace.error.file_id": "Der Name der Plugin-Datei hat keine verwendbare ID.",
-    "preferences.language.description": "Wählen Sie die Sprache der Messenger Next-Oberfläche."
+    "preferences.language.description": "Wählen Sie die Sprache der Messenger Next-Oberfläche.",
+    "contextmenu.download_image": "Bild herunterladen",
+    "contextmenu.download_video": "Video herunterladen",
+    "contextmenu.download_file": "Datei herunterladen",
+    "contextmenu.copy_address": "Adresse kopieren",
+    "contextmenu.open_in_browser": "Im Browser öffnen",
+    "contextmenu.copy_image": "Bild kopieren"
   }
 }
