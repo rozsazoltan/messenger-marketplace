@@ -261,6 +261,12 @@
     "marketplace.error.empty_file": "A plugin fájl üres.",
     "marketplace.error.file_type": "Válasszon egy .css vagy .js fájlt.",
     "marketplace.error.file_id": "A beépülő fájlnévnek nincs használható azonosítója.",
-    "preferences.language.description": "Válassza ki a Messenger Next felület nyelvét."
+    "preferences.language.description": "Válassza ki a Messenger Next felület nyelvét.",
+    "contextmenu.download_image": "Kép letöltése",
+    "contextmenu.download_video": "Videó letöltése",
+    "contextmenu.download_file": "Fájl letöltése",
+    "contextmenu.copy_address": "Hivatkozás másolása",
+    "contextmenu.open_in_browser": "Megnyitás böngészőben",
+    "contextmenu.copy_image": "Kép másolása"
   }
 }
