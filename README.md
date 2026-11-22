@@ -56,6 +56,31 @@ At least one of `style` and `script` must be present, unless `category` is
 `language`, where `lang` replaces them. Paths are resolved against the
 repository root on the `main` branch, so relative paths work as written here.
 
+## Themes
+
+Theme stylesheets have two sections:
+
+1. A `:root` block at the top containing only customizable `--theme-*` properties.
+2. The fixed CSS below `/* Shared theme rules. Keep this block identical across themes. */`.
+
+To add a theme, copy `themes/midnight/style.css`, edit its name comment and change
+only the values in the first `:root` block. Keep every rule below the shared
+marker identical, then add the theme's own entry and stylesheet path to
+`index.json`.
+
+| Variable | Controls |
+|----------|----------|
+| `--theme-color-scheme` | Native control appearance: `dark` or `light`. |
+| `--theme-bg` | Page and panel background. |
+| `--theme-surface` | Input and composer background. |
+| `--theme-text` | Text and caret color. |
+| `--theme-muted` | Placeholder color. |
+| `--theme-line` | Borders and separators. |
+
+Scrollbar colors stay `auto` in the shared rules so the browser paints the
+native track rather than exposing the chat gradient through a transparent one.
+Each theme remains a standalone stylesheet; no shared stylesheet loader is needed.
+
 ## Language packs
 
 A language pack is declarative JSON and never runs code:
