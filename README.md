@@ -51,6 +51,7 @@ the paths in `index.json`, so an entry keeps working wherever its files sit.
 | `script` | no | Repo-relative path to a JS file. |
 | `category` | no | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`. |
 | `lang` | language only | Repo-relative path to the language pack JSON. |
+| `icon` | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
 
 At least one of `style` and `script` must be present, unless `category` is
 `language`, where `lang` replaces them. Paths are resolved against the
