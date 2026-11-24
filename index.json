@@ -8,6 +8,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.4",
+      "modes": ["dark"],
       "style": "themes/midnight/style.css"
     },
     {
@@ -17,6 +18,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["dark"],
       "style": "themes/oled-black/style.css"
     },
     {
@@ -26,6 +28,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["dark"],
       "style": "themes/terminal/style.css"
     },
     {
@@ -35,6 +38,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/graphite/style.css"
     },
     {
@@ -44,6 +48,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/warm/style.css"
     },
     {
@@ -53,6 +58,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/pink/style.css"
     },
     {
@@ -62,6 +68,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/lavender/style.css"
     },
     {
@@ -71,6 +78,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/sage/style.css"
     },
     {
@@ -80,6 +88,7 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.0",
+      "modes": ["light", "dark"],
       "style": "themes/slate/style.css"
     },
     {

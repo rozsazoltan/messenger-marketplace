@@ -52,6 +52,7 @@ the paths in `index.json`, so an entry keeps working wherever its files sit.
 | `category` | no | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`. |
 | `lang` | language only | Repo-relative path to the language pack JSON. |
 | `icon` | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
+| `modes` | no | Themes may declare supported `light` and/or `dark` modes. |
 
 At least one of `style` and `script` must be present, unless `category` is
 `language`, where `lang` replaces them. Paths are resolved against the
@@ -66,7 +67,8 @@ tokens in `.viewdock-theme` and dark tokens in
 `.viewdock-theme.__fb-dark-mode`, matching Messenger's dark-mode marker.
 
 To add a theme, copy `themes/midnight/style.css`, change the token values and add
-a manifest entry with only its `style` path. Use only the documented theme
+a manifest entry with its `style` path and supported `modes` (`light`, `dark`,
+or both). Use only the documented theme
 selectors; keep surface rules out of theme files.
 
 | Variable | Controls |
