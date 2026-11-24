@@ -1,0 +1,20 @@
+/* Warm theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #faf2e8;
+  --theme-surface: #fffaf3;
+  --theme-text: #38291f;
+  --theme-muted: #796252;
+  --theme-line: #e8d7c3;
+  --theme-accent: #a34e2c;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #211812;
+  --theme-surface: #302219;
+  --theme-text: #f5e8d9;
+  --theme-muted: #c2a58d;
+  --theme-line: #503a2a;
+  --theme-accent: #f0a477;
+}

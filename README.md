@@ -59,14 +59,15 @@ repository root on the `main` branch, so relative paths work as written here.
 
 ## Themes
 
-Theme stylesheets contain only a `.viewdock-theme` block of customizable
-`--theme-*` properties. Every other rule lives in the app: Messenger ships one
-fixed theme stylesheet bound to the `.viewdock-theme` class, and it applies only
-while a theme is active.
+Theme stylesheets contain only customizable `--theme-*` properties. The app
+provides surface rules and applies them while a theme is active. Fixed dark
+themes set tokens in one `.viewdock-theme` block. Adaptive themes set light
+tokens in `.viewdock-theme` and dark tokens in
+`.viewdock-theme.__fb-dark-mode`, matching Messenger's dark-mode marker.
 
 To add a theme, copy `themes/midnight/style.css`, change the token values and add
-a manifest entry with only its `style` path. Keep selectors out of the theme
-file; the app already provides them.
+a manifest entry with only its `style` path. Use only the documented theme
+selectors; keep surface rules out of theme files.
 
 | Variable | Controls |
 |----------|----------|
