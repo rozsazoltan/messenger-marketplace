@@ -32,7 +32,7 @@ the paths in `index.json`, so an entry keeps working wherever its files sit.
       "description": "…",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.0",
+      "version": "1.0.4",
       "style": "themes/midnight/style.css"
     }
   ]
@@ -58,15 +58,14 @@ repository root on the `main` branch, so relative paths work as written here.
 
 ## Themes
 
-Theme stylesheets have two sections:
+Theme stylesheets contain only a `.viewdock-theme` block of customizable
+`--theme-*` properties. Every other rule lives in the app: Messenger ships one
+fixed theme stylesheet bound to the `.viewdock-theme` class, and it applies only
+while a theme is active.
 
-1. A `:root` block at the top containing only customizable `--theme-*` properties.
-2. The fixed CSS below `/* Shared theme rules. Keep this block identical across themes. */`.
-
-To add a theme, copy `themes/midnight/style.css`, edit its name comment and change
-only the values in the first `:root` block. Keep every rule below the shared
-marker identical, then add the theme's own entry and stylesheet path to
-`index.json`.
+To add a theme, copy `themes/midnight/style.css`, change the token values and add
+a manifest entry with only its `style` path. Keep selectors out of the theme
+file; the app already provides them.
 
 | Variable | Controls |
 |----------|----------|
@@ -76,10 +75,12 @@ marker identical, then add the theme's own entry and stylesheet path to
 | `--theme-text` | Text and caret color. |
 | `--theme-muted` | Placeholder color. |
 | `--theme-line` | Borders and separators. |
+| `--theme-accent` | Links and other emphasized actions. |
 
-Scrollbar colors stay `auto` in the shared rules so the browser paints the
-native track rather than exposing the chat gradient through a transparent one.
-Each theme remains a standalone stylesheet; no shared stylesheet loader is needed.
+Scrollbar colors stay `auto` in the app theme stylesheet so the browser paints
+the native track rather than exposing the chat gradient through a transparent
+one. Older app versions cannot render `.viewdock-theme` payloads correctly, so
+ship app support before publishing themes that use this contract.
 
 ## Language packs
 
