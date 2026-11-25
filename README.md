@@ -140,6 +140,20 @@ A language pack is declarative JSON and never runs code:
 translated text. A missing key falls back to English one lookup at a time, so a
 partial pack is usable. Brand and product names stay untranslated.
 
+### English reference
+
+Use [`locales/en/lang.json`](locales/en/lang.json) as the complete English source
+when contributing a translation. Copy it to `locales/<locale>/lang.json`, change
+the locale, name and flag, and translate the string values without changing their
+keys or placeholders.
+
+English is built into the app. Its Marketplace card only selects English; it is
+not an installable or removable package and does not need an index entry.
+The app's stable-release workflow generates this reference from the released
+app's built-in catalogs and updates it automatically. Ordinary string edits,
+drafts, and previews do not publish a new snapshot. The reference has no package
+version and does not require a Marketplace package update.
+
 ## Trust model
 
 `official: true` means the app maintainer reviewed the code and installs it
