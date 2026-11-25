@@ -79,6 +79,7 @@ selectors; keep surface rules out of theme files.
 | `--theme-panel`                | Conversation list panel background.           |
 | `--theme-surface`              | Input and composer background.                |
 | `--theme-button-background`    | Button and toggle-track background.           |
+| `--theme-wallpaper-fade`       | What a chat wallpaper fades into.             |
 | `--theme-text`                 | Text and caret color.                         |
 | `--theme-muted`                | Placeholder color.                            |
 | `--theme-line`                 | Borders and separators.                       |
@@ -96,8 +97,8 @@ selectors; keep surface rules out of theme files.
 | `--theme-input-focus`          | Input/search focus border and caret.          |
 
 Themes own literal values for all nineteen base and state tokens in every
-supported mode block; `--theme-panel` and `--theme-button-background` are
-optional on top of them.
+supported mode block; `--theme-panel`, `--theme-button-background` and
+`--theme-wallpaper-fade` are optional on top of them.
 `--theme-button-background` fills plain buttons and the toggle track; keep it a
 step below `--theme-surface` so a control reads as a control, and it falls back
 to the surface when a package omits it.
@@ -106,6 +107,9 @@ to the surface when a package omits it.
 `--theme-panel` is the conversation list panel; themes that omit it fall back to
 their own `--theme-surface`, and a theme that keeps the list on `--theme-bg`
 still reads as long as the surface stays a step above it.
+`--theme-wallpaper-fade` is the colour a chat wallpaper dims into at low
+wallpaper opacity. A dark theme should name a shade above its base so the image
+does not sink into black; a light theme can keep its own `--theme-bg`.
 Shared app CSS maps these semantic tokens to interface elements and states; it
 does not generate colors with `color-mix()`. Maintain readable text/background
 pairs in each mode. Existing third-party themes may omit state tokens; shared
