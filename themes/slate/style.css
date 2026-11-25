@@ -4,6 +4,7 @@
   --theme-bg: #edf3f8;
   --theme-shell: #d4d9de;
   --theme-surface: #f9fcff;
+  --theme-button-background: #eff4f9;
   --theme-text: #243443;
   --theme-muted: #566d80;
   --theme-line: #cfdae4;
@@ -26,6 +27,7 @@
   --theme-bg: #121b24;
   --theme-shell: #010101;
   --theme-surface: #1b2834;
+  --theme-button-background: #131d26;
   --theme-text: #e7f0f7;
   --theme-muted: #a1b5c5;
   --theme-line: #334655;

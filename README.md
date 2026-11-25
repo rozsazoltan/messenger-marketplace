@@ -78,6 +78,7 @@ selectors; keep surface rules out of theme files.
 | `--theme-shell`                | Window background behind the chat column.     |
 | `--theme-panel`                | Conversation list panel background.           |
 | `--theme-surface`              | Input and composer background.                |
+| `--theme-button-background`    | Button and toggle-track background.           |
 | `--theme-text`                 | Text and caret color.                         |
 | `--theme-muted`                | Placeholder color.                            |
 | `--theme-line`                 | Borders and separators.                       |
@@ -95,7 +96,11 @@ selectors; keep surface rules out of theme files.
 | `--theme-input-focus`          | Input/search focus border and caret.          |
 
 Themes own literal values for all nineteen base and state tokens in every
-supported mode block; `--theme-panel` is optional on top of them.
+supported mode block; `--theme-panel` and `--theme-button-background` are
+optional on top of them.
+`--theme-button-background` fills plain buttons and the toggle track; keep it a
+step below `--theme-surface` so a control reads as a control, and it falls back
+to the surface when a package omits it.
 `--theme-shell` is the outer window shade; keep it a clear step apart from
 `--theme-bg` so the chat column and the conversation list keep their edges.
 `--theme-panel` is the conversation list panel; themes that omit it fall back to
