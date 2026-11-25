@@ -39,20 +39,20 @@ the paths in `index.json`, so an entry keeps working wherever its files sit.
 }
 ```
 
-| Field | Required | Meaning |
-|-------|----------|---------|
-| `id` | yes | Stable identifier, lowercase, `[a-z0-9-]`. Used as the storage key. |
-| `name` | yes | Display name. |
-| `description` | yes | One sentence shown in the app. |
-| `author` | yes | Author or maintainer name. |
-| `official` | yes | `true` only for plugins reviewed by the app maintainer. |
-| `version` | yes | Semver string. |
-| `style` | no | Repo-relative path to a CSS file. |
-| `script` | no | Repo-relative path to a JS file. |
-| `category` | no | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`. |
-| `lang` | language only | Repo-relative path to the language pack JSON. |
-| `icon` | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
-| `modes` | no | Themes may declare supported `light` and/or `dark` modes. |
+| Field         | Required            | Meaning                                                                                                                       |
+| ------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | yes                 | Stable identifier, lowercase, `[a-z0-9-]`. Used as the storage key.                                                           |
+| `name`        | yes                 | Display name.                                                                                                                 |
+| `description` | yes                 | One sentence shown in the app.                                                                                                |
+| `author`      | yes                 | Author or maintainer name.                                                                                                    |
+| `official`    | yes                 | `true` only for plugins reviewed by the app maintainer.                                                                       |
+| `version`     | yes                 | Semver string.                                                                                                                |
+| `style`       | no                  | Repo-relative path to a CSS file.                                                                                             |
+| `script`      | no                  | Repo-relative path to a JS file.                                                                                              |
+| `category`    | no                  | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`.                                                   |
+| `lang`        | language only       | Repo-relative path to the language pack JSON.                                                                                 |
+| `icon`        | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
+| `modes`       | no                  | Themes may declare supported `light` and/or `dark` modes.                                                                     |
 
 At least one of `style` and `script` must be present, unless `category` is
 `language`, where `lang` replaces them. Paths are resolved against the
@@ -71,15 +71,35 @@ a manifest entry with its `style` path and supported `modes` (`light`, `dark`,
 or both). Use only the documented theme
 selectors; keep surface rules out of theme files.
 
-| Variable | Controls |
-|----------|----------|
-| `--theme-color-scheme` | Native control appearance: `dark` or `light`. |
-| `--theme-bg` | Page and panel background. |
-| `--theme-surface` | Input and composer background. |
-| `--theme-text` | Text and caret color. |
-| `--theme-muted` | Placeholder color. |
-| `--theme-line` | Borders and separators. |
-| `--theme-accent` | Links and other emphasized actions. |
+| Variable                       | Controls                                      |
+| ------------------------------ | --------------------------------------------- |
+| `--theme-color-scheme`         | Native control appearance: `dark` or `light`. |
+| `--theme-bg`                   | Page and panel background.                    |
+| `--theme-surface`              | Input and composer background.                |
+| `--theme-text`                 | Text and caret color.                         |
+| `--theme-muted`                | Placeholder color.                            |
+| `--theme-line`                 | Borders and separators.                       |
+| `--theme-accent`               | Links and other emphasized actions.           |
+| `--theme-hover-background`     | Hover background.                             |
+| `--theme-hover-text`           | Hover text.                                   |
+| `--theme-active-background`    | Selected/active background.                   |
+| `--theme-active-text`          | Selected/active text.                         |
+| `--theme-selection-background` | Text-selection background.                    |
+| `--theme-selection-text`       | Text-selection text.                          |
+| `--theme-input-background`     | Input/search background.                      |
+| `--theme-input-text`           | Input/search text.                            |
+| `--theme-input-placeholder`    | Input/search placeholder.                     |
+| `--theme-input-border`         | Input/search border.                          |
+| `--theme-input-focus`          | Input/search focus border and caret.          |
+
+Themes own literal values for all eighteen tokens in every supported mode block.
+Shared app CSS maps these semantic tokens to interface elements and states; it
+does not generate colors with `color-mix()`. Maintain readable text/background
+pairs in each mode. Existing third-party themes may omit state tokens; shared
+CSS may alias missing state values to the seven base tokens for compatibility.
+The app does not directly set chat wallpaper, header/composer, or message-bubble
+colors. Search styling targets a label directly wrapping `input[type="search"]`;
+different markup may need separate styling.
 
 Scrollbar colors stay `auto` in the app theme stylesheet so the browser paints
 the native track rather than exposing the chat gradient through a transparent

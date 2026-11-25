@@ -7,4 +7,15 @@
   --theme-muted: #91b89d;
   --theme-line: #203b29;
   --theme-accent: #69e68b;
+  --theme-hover-background: #07100b;
+  --theme-hover-text: #d6f5df;
+  --theme-active-background: #07100b;
+  --theme-active-text: #d6f5df;
+  --theme-selection-background: #07100b;
+  --theme-selection-text: #d6f5df;
+  --theme-input-background: #0c1810;
+  --theme-input-text: #d6f5df;
+  --theme-input-placeholder: #91b89d;
+  --theme-input-border: #203b29;
+  --theme-input-focus: #69e68b;
 }

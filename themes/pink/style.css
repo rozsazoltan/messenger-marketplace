@@ -7,6 +7,17 @@
   --theme-muted: #805565;
   --theme-line: #f0d1dc;
   --theme-accent: #b52f66;
+  --theme-hover-background: #fff0f4;
+  --theme-hover-text: #3d202c;
+  --theme-active-background: #fff0f4;
+  --theme-active-text: #3d202c;
+  --theme-selection-background: #fff0f4;
+  --theme-selection-text: #3d202c;
+  --theme-input-background: #fffafd;
+  --theme-input-text: #3d202c;
+  --theme-input-placeholder: #805565;
+  --theme-input-border: #f0d1dc;
+  --theme-input-focus: #b52f66;
 }
 
 .viewdock-theme.__fb-dark-mode {
@@ -17,4 +28,15 @@
   --theme-muted: #c6a0b0;
   --theme-line: #513044;
   --theme-accent: #f184ae;
+  --theme-hover-background: #21121a;
+  --theme-hover-text: #f8e7ee;
+  --theme-active-background: #21121a;
+  --theme-active-text: #f8e7ee;
+  --theme-selection-background: #21121a;
+  --theme-selection-text: #f8e7ee;
+  --theme-input-background: #301b26;
+  --theme-input-text: #f8e7ee;
+  --theme-input-placeholder: #c6a0b0;
+  --theme-input-border: #513044;
+  --theme-input-focus: #f184ae;
 }
