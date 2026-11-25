@@ -7,7 +7,7 @@
       "description": "A quiet dark theme with deep surfaces and soft text contrast.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.9",
+      "version": "1.0.10",
       "modes": ["dark"],
       "style": "themes/midnight/style.css"
     },
