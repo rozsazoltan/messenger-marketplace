@@ -1,0 +1,20 @@
+/* Slate theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #edf3f8;
+  --theme-surface: #f9fcff;
+  --theme-text: #243443;
+  --theme-muted: #566d80;
+  --theme-line: #cfdae4;
+  --theme-accent: #315f87;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #121b24;
+  --theme-surface: #1b2834;
+  --theme-text: #e7f0f7;
+  --theme-muted: #a1b5c5;
+  --theme-line: #334655;
+  --theme-accent: #83bde8;
+}

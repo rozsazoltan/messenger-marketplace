@@ -8,7 +8,88 @@
       "author": "rozsazoltan",
       "official": true,
       "version": "1.0.4",
+      "modes": ["dark"],
       "style": "themes/midnight/style.css"
+    },
+    {
+      "id": "oled-black",
+      "name": "OLED Black",
+      "description": "A true-black dark theme with crisp, quiet contrast.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["dark"],
+      "style": "themes/oled-black/style.css"
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal",
+      "description": "A deep evergreen theme with bright, readable accents.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["dark"],
+      "style": "themes/terminal/style.css"
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "description": "A balanced neutral theme in light and dark modes.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/graphite/style.css"
+    },
+    {
+      "id": "warm",
+      "name": "Warm",
+      "description": "A soft parchment palette with ember accents.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/warm/style.css"
+    },
+    {
+      "id": "pink",
+      "name": "Pink",
+      "description": "A gentle rose palette with vivid berry accents.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/pink/style.css"
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "description": "A calm violet palette with soft, luminous accents.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/lavender/style.css"
+    },
+    {
+      "id": "sage",
+      "name": "Sage",
+      "description": "A botanical green palette with gentle contrast.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/sage/style.css"
+    },
+    {
+      "id": "slate",
+      "name": "Slate",
+      "description": "A cool blue-gray palette for light and dark modes.",
+      "author": "rozsazoltan",
+      "official": true,
+      "version": "1.0.0",
+      "modes": ["light", "dark"],
+      "style": "themes/slate/style.css"
     },
     {
       "id": "message-tools",

@@ -1,0 +1,20 @@
+/* Graphite theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #f1f2f3;
+  --theme-surface: #ffffff;
+  --theme-text: #25282b;
+  --theme-muted: #62686e;
+  --theme-line: #d3d6d9;
+  --theme-accent: #465a70;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #171a1d;
+  --theme-surface: #222629;
+  --theme-text: #edf0f2;
+  --theme-muted: #a8afb5;
+  --theme-line: #383e43;
+  --theme-accent: #9bbbd7;
+}

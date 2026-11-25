@@ -1,0 +1,20 @@
+/* Pink theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #fff0f4;
+  --theme-surface: #fffafd;
+  --theme-text: #3d202c;
+  --theme-muted: #805565;
+  --theme-line: #f0d1dc;
+  --theme-accent: #b52f66;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #21121a;
+  --theme-surface: #301b26;
+  --theme-text: #f8e7ee;
+  --theme-muted: #c6a0b0;
+  --theme-line: #513044;
+  --theme-accent: #f184ae;
+}

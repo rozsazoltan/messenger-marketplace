@@ -1,0 +1,10 @@
+/* Terminal theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: dark;
+  --theme-bg: #07100b;
+  --theme-surface: #0c1810;
+  --theme-text: #d6f5df;
+  --theme-muted: #91b89d;
+  --theme-line: #203b29;
+  --theme-accent: #69e68b;
+}

@@ -1,0 +1,20 @@
+/* Sage theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #f0f5ef;
+  --theme-surface: #fbfdf9;
+  --theme-text: #26352b;
+  --theme-muted: #5f7465;
+  --theme-line: #d2dfd2;
+  --theme-accent: #3b7550;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #121b16;
+  --theme-surface: #1d2921;
+  --theme-text: #e5f0e7;
+  --theme-muted: #a4bba9;
+  --theme-line: #34483a;
+  --theme-accent: #8fd0a0;
+}

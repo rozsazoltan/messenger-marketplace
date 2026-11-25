@@ -1,0 +1,20 @@
+/* Lavender theme tokens. Surface rules ship with the app, not this file. */
+.viewdock-theme {
+  --theme-color-scheme: light;
+  --theme-bg: #f5f1ff;
+  --theme-surface: #fdfbff;
+  --theme-text: #302645;
+  --theme-muted: #6f6288;
+  --theme-line: #ded5f0;
+  --theme-accent: #6848ad;
+}
+
+.viewdock-theme.__fb-dark-mode {
+  --theme-color-scheme: dark;
+  --theme-bg: #191425;
+  --theme-surface: #251e34;
+  --theme-text: #eee8fb;
+  --theme-muted: #b7aaca;
+  --theme-line: #403652;
+  --theme-accent: #bea1ff;
+}
