@@ -17,7 +17,7 @@
       "description": "A true-black dark theme with crisp, quiet contrast.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.5",
+      "version": "1.0.6",
       "modes": ["dark"],
       "style": "themes/oled-black/style.css"
     },
