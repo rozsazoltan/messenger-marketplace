@@ -75,6 +75,7 @@ selectors; keep surface rules out of theme files.
 | ------------------------------ | --------------------------------------------- |
 | `--theme-color-scheme`         | Native control appearance: `dark` or `light`. |
 | `--theme-bg`                   | Page and panel background.                    |
+| `--theme-shell`                | Window background behind the chat column.     |
 | `--theme-surface`              | Input and composer background.                |
 | `--theme-text`                 | Text and caret color.                         |
 | `--theme-muted`                | Placeholder color.                            |
@@ -92,7 +93,10 @@ selectors; keep surface rules out of theme files.
 | `--theme-input-border`         | Input/search border.                          |
 | `--theme-input-focus`          | Input/search focus border and caret.          |
 
-Themes own literal values for all eighteen tokens in every supported mode block.
+Themes own literal values for all nineteen tokens in every supported mode block.
+`--theme-shell` is the outer window shade; keep it a clear step apart from
+`--theme-bg` so the chat column and the conversation list keep their edges.
+Themes that omit it fall back to their own `--theme-surface`.
 Shared app CSS maps these semantic tokens to interface elements and states; it
 does not generate colors with `color-mix()`. Maintain readable text/background
 pairs in each mode. Existing third-party themes may omit state tokens; shared

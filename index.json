@@ -7,7 +7,7 @@
       "description": "A quiet dark theme with deep surfaces and soft text contrast.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.6",
+      "version": "1.0.8",
       "modes": ["dark"],
       "style": "themes/midnight/style.css"
     },
@@ -17,7 +17,7 @@
       "description": "A true-black dark theme with crisp, quiet contrast.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.5",
       "modes": ["dark"],
       "style": "themes/oled-black/style.css"
     },
@@ -27,7 +27,7 @@
       "description": "A deep evergreen theme with bright, readable accents.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["dark"],
       "style": "themes/terminal/style.css"
     },
@@ -37,7 +37,7 @@
       "description": "A balanced neutral theme in light and dark modes.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/graphite/style.css"
     },
@@ -47,7 +47,7 @@
       "description": "A soft parchment palette with ember accents.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/warm/style.css"
     },
@@ -57,7 +57,7 @@
       "description": "A gentle rose palette with vivid berry accents.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/pink/style.css"
     },
@@ -67,7 +67,7 @@
       "description": "A calm violet palette with soft, luminous accents.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/lavender/style.css"
     },
@@ -77,7 +77,7 @@
       "description": "A botanical green palette with gentle contrast.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/sage/style.css"
     },
@@ -87,7 +87,7 @@
       "description": "A cool blue-gray palette for light and dark modes.",
       "author": "rozsazoltan",
       "official": true,
-      "version": "1.0.2",
+      "version": "1.0.4",
       "modes": ["light", "dark"],
       "style": "themes/slate/style.css"
     },

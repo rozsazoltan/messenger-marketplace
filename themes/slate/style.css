@@ -2,6 +2,7 @@
 .viewdock-theme {
   --theme-color-scheme: light;
   --theme-bg: #edf3f8;
+  --theme-shell: #d4d9de;
   --theme-surface: #f9fcff;
   --theme-text: #243443;
   --theme-muted: #566d80;
@@ -23,6 +24,7 @@
 .viewdock-theme.__fb-dark-mode {
   --theme-color-scheme: dark;
   --theme-bg: #121b24;
+  --theme-shell: #010101;
   --theme-surface: #1b2834;
   --theme-text: #e7f0f7;
   --theme-muted: #a1b5c5;

@@ -2,6 +2,7 @@
 .viewdock-theme {
   --theme-color-scheme: dark;
   --theme-bg: #07100b;
+  --theme-shell: #1c2520;
   --theme-surface: #0c1810;
   --theme-text: #d6f5df;
   --theme-muted: #91b89d;
