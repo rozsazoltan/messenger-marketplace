@@ -185,10 +185,13 @@ selectors; keep surface rules out of theme files.
 | `--theme-input-placeholder`    | Input/search placeholder.                     |
 | `--theme-input-border`         | Input/search border.                          |
 | `--theme-input-focus`          | Input/search focus border and caret.          |
+| `--theme-outgoing-background`  | Own-message bubble background.                |
+| `--theme-outgoing-text`        | Own-message bubble text.                      |
 
 Themes own literal values for all nineteen base and state tokens in every
 supported mode block; `--theme-panel`, `--theme-button-background` and
-`--theme-wallpaper-fade` are optional on top of them.
+`--theme-wallpaper-fade`, `--theme-outgoing-background` and
+`--theme-outgoing-text` are optional on top of them.
 `--theme-button-background` fills plain buttons and the toggle track; keep it a
 step below `--theme-surface` so a control reads as a control, and it falls back
 to the surface when a package omits it.
@@ -204,9 +207,13 @@ Shared app CSS maps these semantic tokens to interface elements and states; it
 does not generate colors with `color-mix()`. Maintain readable text/background
 pairs in each mode. Existing third-party themes may omit state tokens; shared
 CSS may alias missing state values to the seven base tokens for compatibility.
-The app does not directly set chat wallpaper, header/composer, or message-bubble
-colors. Search styling targets a label directly wrapping `input[type="search"]`;
-different markup may need separate styling.
+Incoming bubbles use `--theme-surface` with `--theme-text`. Own-message bubbles
+use `--theme-outgoing-background` (falling back to `--theme-accent`) with
+`--theme-outgoing-text` (falling back to `--theme-bg`), so the default light
+bubble never glares on a dark theme; keep that pair readable if you override it.
+The app does not set the chat wallpaper itself. Search styling targets a label
+directly wrapping `input[type="search"]`; different markup may need separate
+styling.
 
 Scrollbar colors stay `auto` in the app theme stylesheet so the browser paints
 the native track rather than exposing the chat gradient through a transparent
