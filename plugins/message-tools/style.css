@@ -1,14 +1,20 @@
+.message-tools-counter-anchor {
+  position: relative;
+  padding-block-end: 16px;
+}
+
 .message-tools-counter {
-  align-self: flex-end;
-  margin: 0 12px 6px auto;
+  position: absolute;
+  inset-inline-end: 0;
+  bottom: 0;
   font-size: 11px;
   line-height: 1.4;
   font-variant-numeric: tabular-nums;
-  color: #8a8d91;
+  color: var(--secondary-text, #8a8d91);
   pointer-events: none;
 }
 
-.message-tools-counter[data-state='over'] {
+.message-tools-counter[data-state="over"] {
   color: #e41e3f;
   font-weight: 600;
 }

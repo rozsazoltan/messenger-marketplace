@@ -1,4 +1,4 @@
-/* Message Tools - sample community plugin.
+/* Char Counter - community plugin.
    Adds a live character counter under the message composer. */
 
 (() => {
@@ -6,28 +6,41 @@
   window.__messageToolsStarted = true;
 
   const COMPOSER_SELECTOR = '[contenteditable="true"][role="textbox"]';
-  const COUNTER_ATTRIBUTE = 'data-message-tools-counter';
-  const LIMIT = 2000;
+  const COUNTER_ATTRIBUTE = "data-message-tools-counter";
+  const ANCHOR_CLASS = "message-tools-counter-anchor";
 
   let composer = null;
   let counter = null;
 
   function render() {
     if (!composer || !counter) return;
-    const text = composer.innerText || composer.textContent || '';
-    const length = text.replace(/\r?\n/g, ' ').length;
-    const next = `${length} / ${LIMIT}`;
+    const text = composer.textContent ? composer.innerText : "";
+    const length = text.replace(/\r?\n/g, " ").length;
+    const next = String(length);
     if (counter.textContent !== next) counter.textContent = next;
-    const state = length > LIMIT ? 'over' : 'ok';
+    counter.hidden = length === 0;
+    counter.parentElement.classList.toggle(ANCHOR_CLASS, length > 0);
+    // Only Messenger's explicit maximum is authoritative, not a plugin default.
+    const limit = Number(composer.getAttribute("maxlength"));
+    const state =
+      Number.isSafeInteger(limit) && limit > 0 && length >= limit
+        ? "over"
+        : "ok";
     if (counter.dataset.state !== state) counter.dataset.state = state;
+  }
+
+  function detach() {
+    composer?.removeEventListener("input", render);
+    counter?.parentElement?.classList.remove(ANCHOR_CLASS);
+    counter?.remove();
+    composer = null;
+    counter = null;
   }
 
   function poll() {
     const element = document.querySelector(COMPOSER_SELECTOR);
-    if (!element) {
-      if (counter) counter.remove();
-      composer = null;
-      counter = null;
+    if (!element?.parentElement) {
+      detach();
       return;
     }
     if (element === composer && counter?.isConnected) {
@@ -35,17 +48,13 @@
       return;
     }
 
-    if (counter) counter.remove();
+    detach();
     composer = element;
-    counter = document.createElement('div');
-    counter.setAttribute(COUNTER_ATTRIBUTE, '');
-    counter.className = 'message-tools-counter';
-    const region = element.closest('[role="region"]') || element.parentElement;
-    if (!region) {
-      counter = null;
-      return;
-    }
-    region.append(counter);
+    counter = document.createElement("div");
+    counter.setAttribute(COUNTER_ATTRIBUTE, "");
+    counter.className = "message-tools-counter";
+    element.parentElement.append(counter);
+    composer.addEventListener("input", render);
     render();
   }
 
