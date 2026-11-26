@@ -1,18 +1,21 @@
-/* The count shares the composer's single line: the anchor class is only set
-   while a count is shown, so the text keeps clear space beside it without an
-   extra row. */
+/* Keep clearance beside the count only on the currently visible text line. */
 .message-tools-counter-anchor {
   position: relative;
-  padding-inline-end: 50px;
+}
+
+.message-tools-counter-anchor [contenteditable="true"][role="textbox"]::before {
+  content: "";
+  float: inline-end;
+  width: 50px;
+  height: calc(var(--message-tools-counter-scroll, 0px) + 1lh);
+  shape-outside: inset(var(--message-tools-counter-scroll, 0px) 0 0);
+  pointer-events: none;
 }
 
 .message-tools-counter {
   position: absolute;
   inset-block-start: 1px;
   inset-inline-end: 5px;
-  padding: 0 3px;
-  border-radius: 999px;
-  border: 1px solid currentColor;
   font-size: 12px;
   line-height: 14px;
   font-variant-numeric: tabular-nums;
