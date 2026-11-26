@@ -8,21 +8,10 @@
   const COMPOSER_SELECTOR = '[contenteditable="true"][role="textbox"]';
   const COUNTER_ATTRIBUTE = "data-message-tools-counter";
   const ANCHOR_CLASS = "message-tools-counter-anchor";
-  const SCROLL_PROPERTY = "--message-tools-counter-scroll";
 
   let composer = null;
   let counter = null;
   let counterParent = null;
-  let previousScrollValue = "";
-  let previousScrollPriority = "";
-
-  function syncScroll() {
-    if (!composer || !counterParent) return;
-    const value = `${composer.scrollTop}px`;
-    if (counterParent.style.getPropertyValue(SCROLL_PROPERTY) !== value) {
-      counterParent.style.setProperty(SCROLL_PROPERTY, value);
-    }
-  }
 
   function render() {
     if (!composer || !counter) return;
@@ -32,7 +21,49 @@
     if (counter.textContent !== next) counter.textContent = next;
     counter.hidden = length === 0;
     counterParent.classList.toggle(ANCHOR_CLASS, length > 0);
-    syncScroll();
+    if (length === 0) return;
+
+    counter.style.transform = "";
+    const counterWidth = counter.offsetWidth;
+    const counterHeight = counter.offsetHeight;
+    counter.hidden = true;
+    const parentRect = counterParent.getBoundingClientRect();
+    const editorRect = composer.getBoundingClientRect();
+    const capsule = composer.parentElement?.parentElement;
+    const emoji = [...(capsule?.children ?? [])].find(
+      (child) =>
+        child !== composer.parentElement &&
+        child.querySelector('[role="button"] svg'),
+    );
+    const emojiRect = emoji?.getBoundingClientRect();
+    if (emojiRect && counterWidth > emojiRect.width) {
+      counter.style.transform = `scaleX(${emojiRect.width / counterWidth})`;
+    }
+    const direction = getComputedStyle(counterParent).direction;
+    let physicalLeft;
+    let top;
+
+    if (emojiRect) {
+      const center = (emojiRect.left + emojiRect.right) / 2;
+      physicalLeft = center - counterWidth / 2;
+      top = emojiRect.top - parentRect.top - counterHeight - 1;
+    } else if (direction === "rtl") {
+      physicalLeft = (emojiRect?.right ?? editorRect.left) + 5;
+      top = editorRect.top - parentRect.top + 1;
+    } else {
+      const right =
+        Math.min(editorRect.right, emojiRect?.left ?? editorRect.right) - 5;
+      physicalLeft = right - counterWidth;
+      top = editorRect.top - parentRect.top + 1;
+    }
+
+    const left =
+      direction === "rtl"
+        ? parentRect.right - physicalLeft - counterWidth
+        : physicalLeft - parentRect.left;
+    counter.style.insetInlineStart = `${left}px`;
+    counter.style.insetBlockStart = `${top}px`;
+    counter.hidden = false;
     // Only Messenger's explicit maximum is authoritative, not a plugin default.
     const limit = Number(composer.getAttribute("maxlength"));
     const state =
@@ -44,30 +75,17 @@
 
   function detach() {
     composer?.removeEventListener("input", render);
-    composer?.removeEventListener("scroll", syncScroll);
     counterParent?.classList.remove(ANCHOR_CLASS);
-    if (counterParent) {
-      if (previousScrollValue) {
-        counterParent.style.setProperty(
-          SCROLL_PROPERTY,
-          previousScrollValue,
-          previousScrollPriority,
-        );
-      } else {
-        counterParent.style.removeProperty(SCROLL_PROPERTY);
-      }
-    }
     counter?.remove();
     composer = null;
     counter = null;
     counterParent = null;
-    previousScrollValue = "";
-    previousScrollPriority = "";
   }
 
   function poll() {
     const element = document.querySelector(COMPOSER_SELECTOR);
-    if (!element?.parentElement) {
+    const toolbar = element?.closest('[role="region"]');
+    if (!toolbar) {
       detach();
       return;
     }
@@ -78,16 +96,12 @@
 
     detach();
     composer = element;
-    counterParent = element.parentElement;
-    previousScrollValue = counterParent.style.getPropertyValue(SCROLL_PROPERTY);
-    previousScrollPriority =
-      counterParent.style.getPropertyPriority(SCROLL_PROPERTY);
+    counterParent = toolbar;
     counter = document.createElement("div");
     counter.setAttribute(COUNTER_ATTRIBUTE, "");
     counter.className = "message-tools-counter";
     counterParent.append(counter);
     composer.addEventListener("input", render);
-    composer.addEventListener("scroll", syncScroll, { passive: true });
     render();
   }
 

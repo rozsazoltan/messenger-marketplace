@@ -1,25 +1,15 @@
-/* Keep clearance beside the count only on the currently visible text line. */
+/* Anchor the count to the composer's action column without changing its flow. */
 .message-tools-counter-anchor {
   position: relative;
 }
 
-.message-tools-counter-anchor [contenteditable="true"][role="textbox"]::before {
-  content: "";
-  float: inline-end;
-  width: 50px;
-  height: calc(var(--message-tools-counter-scroll, 0px) + 1lh);
-  shape-outside: inset(var(--message-tools-counter-scroll, 0px) 0 0);
-  pointer-events: none;
-}
-
 .message-tools-counter {
   position: absolute;
-  inset-block-start: 1px;
-  inset-inline-end: 5px;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 11px;
+  line-height: 11px;
   font-variant-numeric: tabular-nums;
   color: var(--secondary-text, #8a8d91);
+  transform-origin: center;
   pointer-events: none;
 }
 
