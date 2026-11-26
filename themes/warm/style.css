@@ -10,6 +10,8 @@
   --theme-muted: #796252;
   --theme-line: #e8d7c3;
   --theme-accent: #a34e2c;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #cc9e8b;
   --theme-hover-background: #f2e6d8;
   --theme-hover-text: #38291f;
   --theme-active-background: #f2ddce;
@@ -34,6 +36,8 @@
   --theme-muted: #c2a58d;
   --theme-line: #503a2a;
   --theme-accent: #f0a477;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #78523c;
   --theme-hover-background: #3d2b20;
   --theme-hover-text: #f5e8d9;
   --theme-active-background: #4a3024;
