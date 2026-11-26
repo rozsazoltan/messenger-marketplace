@@ -3,15 +3,18 @@
    extra row. */
 .message-tools-counter-anchor {
   position: relative;
-  padding-inline-end: 28px;
+  padding-inline-end: 50px;
 }
 
 .message-tools-counter {
   position: absolute;
-  inset-inline-end: 0;
-  bottom: 0;
-  font-size: 11px;
-  line-height: 1.4;
+  inset-block-start: 1px;
+  inset-inline-end: 5px;
+  padding: 0 3px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  line-height: 14px;
   font-variant-numeric: tabular-nums;
   color: var(--secondary-text, #8a8d91);
   pointer-events: none;
