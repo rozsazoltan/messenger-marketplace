@@ -1,14 +1,18 @@
-/* Anchor the count to the composer's action column without changing its flow. */
+/* Positioning context for the count, which floats above the editor's flow. */
 .message-tools-counter-anchor {
   position: relative;
 }
 
-/* Compact (single-line) only: reserve a small end clearance when the text would
-   otherwise reach the count, so the line wraps slightly earlier instead of
-   running under it. Expanded composers keep their native text width. */
-.message-tools-counter-anchor--compact.message-tools-counter-anchor--clear
-  [contenteditable="true"][role="textbox"] {
-  padding-inline-end: var(--message-tools-counter-clearance, 16px);
+/* The count sits at the input's end edge. Only the line it occupies keeps clear:
+   a one-line-high float inside the editor shortens the first line alone, so any
+   later line keeps the full native text width. */
+.message-tools-counter-anchor--clear
+  [contenteditable="true"][role="textbox"]::before {
+  content: "";
+  float: inline-end;
+  width: var(--message-tools-counter-clearance, 16px);
+  height: 1lh;
+  pointer-events: none;
 }
 
 .message-tools-counter {
@@ -17,7 +21,6 @@
   line-height: 11px;
   font-variant-numeric: tabular-nums;
   color: var(--secondary-text, #8a8d91);
-  transform-origin: center;
   pointer-events: none;
 }
 

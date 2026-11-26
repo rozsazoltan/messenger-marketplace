@@ -8,7 +8,6 @@
   const COMPOSER_SELECTOR = '[contenteditable="true"][role="textbox"]';
   const COUNTER_ATTRIBUTE = "data-message-tools-counter";
   const ANCHOR_CLASS = "message-tools-counter-anchor";
-  const COMPACT_CLASS = "message-tools-counter-anchor--compact";
   const CLEAR_CLASS = "message-tools-counter-anchor--clear";
   const CLEARANCE_PROPERTY = "--message-tools-counter-clearance";
 
@@ -16,18 +15,19 @@
   let counter = null;
   let counterParent = null;
   let measuredKey = "";
-  let inkLeft = Infinity;
-  let inkRight = 0;
+  let firstLineLeft = Infinity;
+  let firstLineRight = 0;
   let clearanceValue = "";
   let previousClearance = "";
   let previousClearancePriority = "";
 
-  function measureText(key) {
+  // Only the first line matters: it is the line the count sits in.
+  function measureFirstLine(key, top, lineHeight) {
     if (!composer) return;
     if (key === measuredKey) return;
     measuredKey = key;
-    inkLeft = Infinity;
-    inkRight = 0;
+    firstLineLeft = Infinity;
+    firstLineRight = 0;
     const doc = composer.ownerDocument;
     const walker = doc.createTreeWalker(
       composer,
@@ -38,21 +38,11 @@
       if (!node.length) continue;
       range.selectNodeContents(node);
       for (const rect of range.getClientRects()) {
-        inkLeft = Math.min(inkLeft, rect.left);
-        inkRight = Math.max(inkRight, rect.right);
+        if (Math.abs(rect.top - top) > lineHeight / 2) continue;
+        firstLineLeft = Math.min(firstLineLeft, rect.left);
+        firstLineRight = Math.max(firstLineRight, rect.right);
       }
     }
-  }
-
-  function emojiWrapper(capsule) {
-    if (!capsule) return null;
-    return (
-      [...capsule.children].find(
-        (child) =>
-          child !== composer.parentElement &&
-          child.querySelector('[role="button"] svg'),
-      ) ?? null
-    );
   }
 
   function render() {
@@ -64,84 +54,46 @@
     counter.hidden = length === 0;
     counterParent.classList.toggle(ANCHOR_CLASS, length > 0);
     if (length === 0) {
-      counterParent.classList.remove(COMPACT_CLASS, CLEAR_CLASS);
+      counterParent.classList.remove(CLEAR_CLASS);
       return;
     }
 
-    counter.style.transform = "";
     const counterWidth = counter.offsetWidth;
     const counterHeight = counter.offsetHeight;
 
-    // Decide the mode and the clearance from native geometry only. The
-    // clearance pads the editor, so measuring with it applied would feed back.
-    counterParent.classList.remove(COMPACT_CLASS, CLEAR_CLASS);
-    const nativeRect = composer.getBoundingClientRect();
+    // Decide the clearance from the state without it, so the float cannot feed
+    // its own measurement.
+    counterParent.classList.remove(CLEAR_CLASS);
+    const editorRect = composer.getBoundingClientRect();
     const lineHeight = Number.parseFloat(getComputedStyle(composer).lineHeight);
-    const compact = nativeRect.height <= lineHeight + 1;
-    counterParent.classList.toggle(COMPACT_CLASS, compact);
+    measureFirstLine(`${editorRect.width}|${text}`, editorRect.top, lineHeight);
 
-    measureText(`${nativeRect.width}|${text}`);
     const direction = getComputedStyle(counterParent).direction;
     const clearance = Math.ceil(counterWidth + 4);
     const collides =
       direction === "rtl"
-        ? inkLeft - clearance < nativeRect.left
-        : inkRight + clearance > nativeRect.right;
-    const clearText =
-      compact && collides && nativeRect.width - clearance > clearance;
-    counterParent.classList.toggle(CLEAR_CLASS, clearText);
+        ? firstLineLeft - clearance < editorRect.left
+        : firstLineRight + clearance > editorRect.right;
+    counterParent.classList.toggle(CLEAR_CLASS, collides);
     if (clearanceValue !== `${clearance}px`) {
       clearanceValue = `${clearance}px`;
       counterParent.style.setProperty(CLEARANCE_PROPERTY, clearanceValue);
     }
 
-    // Place against what is actually rendered, including the compact pad.
+    // The count always sits at the input's end edge, centred on the first line.
     const parentRect = counterParent.getBoundingClientRect();
-    const editorRect = composer.getBoundingClientRect();
-    const emojiRect = emojiWrapper(
-      composer.parentElement?.parentElement,
-    )?.getBoundingClientRect();
-    counter.hidden = true;
+    const physicalLeft =
+      direction === "rtl"
+        ? editorRect.left + 2
+        : editorRect.right - counterWidth - 2;
+    const physicalTop = editorRect.top + (lineHeight - counterHeight) / 2;
+    counter.style.insetInlineStart = `${
+      direction === "rtl"
+        ? parentRect.right - physicalLeft - counterWidth
+        : physicalLeft - parentRect.left
+    }px`;
+    counter.style.insetBlockStart = `${physicalTop - parentRect.top}px`;
 
-    if (compact) {
-      const physicalLeft =
-        direction === "rtl"
-          ? editorRect.left + 2
-          : editorRect.right - counterWidth - 2;
-      const physicalTop =
-        (emojiRect
-          ? (emojiRect.top + emojiRect.bottom) / 2
-          : editorRect.top + lineHeight / 2) -
-        counterHeight / 2;
-      counter.style.insetInlineStart = `${
-        direction === "rtl"
-          ? parentRect.right - physicalLeft - counterWidth
-          : physicalLeft - parentRect.left
-      }px`;
-      counter.style.insetBlockStart = `${physicalTop - parentRect.top}px`;
-    } else {
-      const capsuleRect =
-        composer.parentElement?.parentElement?.getBoundingClientRect();
-      const top = emojiRect
-        ? Math.max(emojiRect.top, capsuleRect?.top ?? emojiRect.top) -
-          counterHeight -
-          1
-        : editorRect.top;
-      const center = emojiRect
-        ? (emojiRect.left + emojiRect.right) / 2
-        : editorRect.right;
-      if (emojiRect && counterWidth > emojiRect.width) {
-        counter.style.transform = `scaleX(${emojiRect.width / counterWidth})`;
-      }
-      const physicalLeft = center - counterWidth / 2;
-      counter.style.insetInlineStart = `${
-        direction === "rtl"
-          ? parentRect.right - physicalLeft - counterWidth
-          : physicalLeft - parentRect.left
-      }px`;
-      counter.style.insetBlockStart = `${top - parentRect.top}px`;
-    }
-    counter.hidden = false;
     // Only Messenger's explicit maximum is authoritative, not a plugin default.
     const limit = Number(composer.getAttribute("maxlength"));
     const state =
@@ -153,7 +105,7 @@
 
   function detach() {
     composer?.removeEventListener("input", render);
-    counterParent?.classList.remove(ANCHOR_CLASS, COMPACT_CLASS, CLEAR_CLASS);
+    counterParent?.classList.remove(ANCHOR_CLASS, CLEAR_CLASS);
     if (counterParent) {
       if (previousClearance) {
         counterParent.style.setProperty(
@@ -170,8 +122,8 @@
     counter = null;
     counterParent = null;
     measuredKey = "";
-    inkLeft = Infinity;
-    inkRight = 0;
+    firstLineLeft = Infinity;
+    firstLineRight = 0;
     clearanceValue = "";
     previousClearance = "";
     previousClearancePriority = "";
