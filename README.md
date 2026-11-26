@@ -39,24 +39,114 @@ the paths in `index.json`, so an entry keeps working wherever its files sit.
 }
 ```
 
-| Field         | Required            | Meaning                                                                                                                       |
-| ------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `id`          | yes                 | Stable identifier, lowercase, `[a-z0-9-]`. Used as the storage key.                                                           |
-| `name`        | yes                 | Display name.                                                                                                                 |
-| `description` | yes                 | One sentence shown in the app.                                                                                                |
-| `author`      | yes                 | Author or maintainer name.                                                                                                    |
-| `official`    | yes                 | `true` only for plugins reviewed by the app maintainer.                                                                       |
-| `version`     | yes                 | Semver string.                                                                                                                |
-| `style`       | no                  | Repo-relative path to a CSS file.                                                                                             |
-| `script`      | no                  | Repo-relative path to a JS file.                                                                                              |
-| `category`    | no                  | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`.                                                   |
-| `lang`        | language only       | Repo-relative path to the language pack JSON.                                                                                 |
-| `icon`        | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
-| `modes`       | no                  | Themes may declare supported `light` and/or `dark` modes.                                                                     |
+| Field          | Required            | Meaning                                                                                                                       |
+| -------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `id`           | yes                 | Stable identifier, lowercase, `[a-z0-9-]`. Used as the storage key.                                                           |
+| `name`         | yes                 | Display name.                                                                                                                 |
+| `description`  | yes                 | One sentence shown in the app.                                                                                                |
+| `author`       | yes                 | Author or maintainer name.                                                                                                    |
+| `official`     | yes                 | `true` only for plugins reviewed by the app maintainer.                                                                       |
+| `version`      | yes                 | Semver string.                                                                                                                |
+| `style`        | no                  | Repo-relative path to a CSS file.                                                                                             |
+| `script`       | no                  | Repo-relative path to a JS file.                                                                                              |
+| `category`     | no                  | `theme`, `plugin` or `language`. Defaults to a guess from `style`/`script`.                                                   |
+| `lang`         | language only       | Repo-relative path to the language pack JSON.                                                                                 |
+| `icon`         | in the package JSON | Language packs carry their own `icon`: embedded SVG markup. The app copies it on install, so the index stays free of artwork. |
+| `modes`        | no                  | Themes may declare supported `light` and/or `dark` modes.                                                                     |
+| `status`       | no                  | `active` (default), `deprecated`, `disabled`, or `removed`. See lifecycle controls below.                                     |
+| `statusReason` | no                  | Plain-text explanation displayed with a lifecycle warning.                                                                    |
+| `renamedFrom`  | no                  | Previous IDs that can upgrade to this entry, unless those IDs are present in the current catalog.                             |
 
-At least one of `style` and `script` must be present, unless `category` is
-`language`, where `lang` replaces them. Paths are resolved against the
-repository root on the `main` branch, so relative paths work as written here.
+Active and deprecated entries need at least one of `style` and `script`, unless
+`category` is `language`, where `lang` replaces them. Disabled and removed
+entries do not need downloadable payload paths. Paths are resolved against the
+selected repository source, so relative paths work as written here.
+
+## Lifecycle controls
+
+These fields require an app version that supports lifecycle controls. Older
+clients do not enforce them; publishing metadata alone does not stop an older
+installed client.
+
+| Status               | Effect                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `active`, or omitted | Normal installation and use. Clearing a restriction does not automatically enable a previously disabled item.                  |
+| `deprecated`         | Shows a warning and optional reason. Existing installations and new installs remain usable.                                    |
+| `disabled`           | Prevents installation and activation. A matching installed item is switched off but its package remains available for removal. |
+| `removed`            | Removes the matching installed package's saved payload and record before hiding its card.                                      |
+
+For a removal, retain an explicit entry with the item's ID, usual metadata,
+`"status": "removed"`, and an optional `statusReason`. Payload paths are not
+needed for a removal entry. Keep this tombstone in the catalog so clients that
+were offline can receive the instruction later. Merely deleting an entry from
+`index.json`, a failed request, or an invalid response never means uninstall.
+
+For example, a blocked entry can include:
+
+```json
+{
+  "id": "example-tool",
+  "name": "Example Tool",
+  "description": "An example lifecycle-controlled plugin.",
+  "author": "maintainer",
+  "official": false,
+  "version": "1.0.0",
+  "category": "plugin",
+  "status": "disabled",
+  "statusReason": "Temporarily unavailable while a compatibility issue is fixed."
+}
+```
+
+Enforcement is automatic, but scoped to an installation's recorded Marketplace
+source. A PR or branch cannot remove a package installed from another source.
+Local imports and built-in English are not remotely removable. Legacy
+installations without proven source ownership must first acquire it through a
+normal package update.
+
+Removal covers the package record and saved JS, CSS, or language catalog,
+including its native storage chunks. It does not erase arbitrary user files or
+unknown data created by a plugin. Failed storage operations must not be presented
+as successful removal. Lifecycle-capable clients use a native batch operation
+to commit payload changes and the installed index together; this requires the
+corresponding native app update, not just refreshed injected JavaScript. Builds
+without that operation keep working for install, update, toggle and deprecation,
+but refuse removal and identity upgrades instead of deleting only part of a
+package.
+
+A newly blocked or removed running script may require a WebView restart to stop
+its existing timers and listeners. An ordinary catalog refresh without such a
+state change does not restart the app.
+
+### Renaming an item
+
+Changing `name` changes only the display label. To change identity, publish the
+replacement under its new `id` and list previous IDs in `renamedFrom`:
+
+```json
+{
+  "id": "new-tool",
+  "name": "New Tool",
+  "description": "The replacement identity for an existing tool.",
+  "author": "maintainer",
+  "official": false,
+  "version": "1.0.0",
+  "category": "plugin",
+  "script": "plugins/new-tool/index.js",
+  "renamedFrom": ["old-tool"]
+}
+```
+
+The user gets an explicit Update action even when the version is unchanged.
+The client downloads and validates the replacement before moving the installed
+identity and deleting the old record. A catalog refresh does not silently run
+replacement code. Active selection and enabled state are preserved where
+applicable.
+
+An ID present in the current catalog always wins over an alias. If `old-tool`
+is reused by another entry, its previous rename mapping no longer applies.
+Display names are not identity keys. Do not create competing aliases, alias
+chains or cycles, cross-category replacements, or migrations that overwrite an
+already installed target. Matching source ownership is required for migration.
 
 ## Themes
 
