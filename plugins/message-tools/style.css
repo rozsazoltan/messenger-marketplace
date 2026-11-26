@@ -1,26 +1,18 @@
-/* Positioning context for the count, which floats above the editor's flow. */
+/* Positioning context for the count beside the fixed action row. */
 .message-tools-counter-anchor {
   position: relative;
 }
 
-/* The count sits at the input's end edge. Only the line it occupies keeps clear:
-   a one-line-high float inside the editor shortens the first line alone, so any
-   later line keeps the full native text width. */
-.message-tools-counter-anchor--clear
-  [contenteditable="true"][role="textbox"]::before {
-  content: "";
-  float: inline-end;
-  width: var(--message-tools-counter-clearance, 16px);
-  height: 1lh;
-  pointer-events: none;
-}
-
 .message-tools-counter {
   position: absolute;
+  left: 0;
+  width: 6em;
   font-size: 11px;
   line-height: 11px;
+  text-align: center;
   font-variant-numeric: tabular-nums;
   color: var(--secondary-text, #8a8d91);
+  transform: translateX(-50%);
   pointer-events: none;
 }
 

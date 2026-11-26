@@ -8,42 +8,10 @@
   const COMPOSER_SELECTOR = '[contenteditable="true"][role="textbox"]';
   const COUNTER_ATTRIBUTE = "data-message-tools-counter";
   const ANCHOR_CLASS = "message-tools-counter-anchor";
-  const CLEAR_CLASS = "message-tools-counter-anchor--clear";
-  const CLEARANCE_PROPERTY = "--message-tools-counter-clearance";
 
   let composer = null;
   let counter = null;
   let counterParent = null;
-  let measuredKey = "";
-  let firstLineLeft = Infinity;
-  let firstLineRight = 0;
-  let clearanceValue = "";
-  let previousClearance = "";
-  let previousClearancePriority = "";
-
-  // Only the first line matters: it is the line the count sits in.
-  function measureFirstLine(key, top, lineHeight) {
-    if (!composer) return;
-    if (key === measuredKey) return;
-    measuredKey = key;
-    firstLineLeft = Infinity;
-    firstLineRight = 0;
-    const doc = composer.ownerDocument;
-    const walker = doc.createTreeWalker(
-      composer,
-      doc.defaultView.NodeFilter.SHOW_TEXT,
-    );
-    const range = doc.createRange();
-    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-      if (!node.length) continue;
-      range.selectNodeContents(node);
-      for (const rect of range.getClientRects()) {
-        if (Math.abs(rect.top - top) > lineHeight / 2) continue;
-        firstLineLeft = Math.min(firstLineLeft, rect.left);
-        firstLineRight = Math.max(firstLineRight, rect.right);
-      }
-    }
-  }
 
   function render() {
     if (!composer || !counter) return;
@@ -51,48 +19,45 @@
     const length = text.replace(/\r?\n/g, " ").length;
     const next = String(length);
     if (counter.textContent !== next) counter.textContent = next;
-    counter.hidden = length === 0;
-    counterParent.classList.toggle(ANCHOR_CLASS, length > 0);
-    if (length === 0) {
-      counterParent.classList.remove(CLEAR_CLASS);
+    const visible = length > 0;
+    if (counterParent.classList.contains(ANCHOR_CLASS) !== visible) {
+      counterParent.classList.toggle(ANCHOR_CLASS, visible);
+    }
+    if (!visible) {
+      if (!counter.hidden) counter.hidden = true;
       return;
     }
 
-    const counterWidth = counter.offsetWidth;
-    const counterHeight = counter.offsetHeight;
-
-    // Decide the clearance from the state without it, so the float cannot feed
-    // its own measurement.
-    counterParent.classList.remove(CLEAR_CLASS);
-    const editorRect = composer.getBoundingClientRect();
-    const lineHeight = Number.parseFloat(getComputedStyle(composer).lineHeight);
-    measureFirstLine(`${editorRect.width}|${text}`, editorRect.top, lineHeight);
-
-    const direction = getComputedStyle(counterParent).direction;
-    const clearance = Math.ceil(counterWidth + 4);
-    const collides =
-      direction === "rtl"
-        ? firstLineLeft - clearance < editorRect.left
-        : firstLineRight + clearance > editorRect.right;
-    counterParent.classList.toggle(CLEAR_CLASS, collides);
-    if (clearanceValue !== `${clearance}px`) {
-      clearanceValue = `${clearance}px`;
-      counterParent.style.setProperty(CLEARANCE_PROPERTY, clearanceValue);
+    let firstControl = null;
+    for (const child of counterParent.children) {
+      if (child.contains(composer)) break;
+      firstControl = [...child.querySelectorAll('[role="button"]')].find(
+        (control) => {
+          const rect = control.getBoundingClientRect();
+          return (
+            rect.width > 0 &&
+            rect.height > 0 &&
+            getComputedStyle(control).visibility !== "hidden"
+          );
+        },
+      );
+      if (firstControl) break;
     }
-
-    // The count always sits at the input's end edge, centred on the first line.
+    if (!firstControl) {
+      if (!counter.hidden) counter.hidden = true;
+      return;
+    }
+    const controlRect = firstControl.getBoundingClientRect();
     const parentRect = counterParent.getBoundingClientRect();
-    const physicalLeft =
-      direction === "rtl"
-        ? editorRect.left + 2
-        : editorRect.right - counterWidth - 2;
-    const physicalTop = editorRect.top + (lineHeight - counterHeight) / 2;
-    counter.style.insetInlineStart = `${
-      direction === "rtl"
-        ? parentRect.right - physicalLeft - counterWidth
-        : physicalLeft - parentRect.left
-    }px`;
-    counter.style.insetBlockStart = `${physicalTop - parentRect.top}px`;
+    const left = (controlRect.left + controlRect.right) / 2 - parentRect.left;
+    const blockEnd = parentRect.bottom - controlRect.top + 2;
+    if (counter.style.left !== `${left}px`) {
+      counter.style.left = `${left}px`;
+    }
+    if (counter.style.insetBlockEnd !== `${blockEnd}px`) {
+      counter.style.insetBlockEnd = `${blockEnd}px`;
+    }
+    if (counter.hidden) counter.hidden = false;
 
     // Only Messenger's explicit maximum is authoritative, not a plugin default.
     const limit = Number(composer.getAttribute("maxlength"));
@@ -105,28 +70,11 @@
 
   function detach() {
     composer?.removeEventListener("input", render);
-    counterParent?.classList.remove(ANCHOR_CLASS, CLEAR_CLASS);
-    if (counterParent) {
-      if (previousClearance) {
-        counterParent.style.setProperty(
-          CLEARANCE_PROPERTY,
-          previousClearance,
-          previousClearancePriority,
-        );
-      } else {
-        counterParent.style.removeProperty(CLEARANCE_PROPERTY);
-      }
-    }
+    counterParent?.classList.remove(ANCHOR_CLASS);
     counter?.remove();
     composer = null;
     counter = null;
     counterParent = null;
-    measuredKey = "";
-    firstLineLeft = Infinity;
-    firstLineRight = 0;
-    clearanceValue = "";
-    previousClearance = "";
-    previousClearancePriority = "";
   }
 
   function poll() {
@@ -144,10 +92,6 @@
     detach();
     composer = element;
     counterParent = toolbar;
-    previousClearance =
-      counterParent.style.getPropertyValue(CLEARANCE_PROPERTY);
-    previousClearancePriority =
-      counterParent.style.getPropertyPriority(CLEARANCE_PROPERTY);
     counter = document.createElement("div");
     counter.setAttribute(COUNTER_ATTRIBUTE, "");
     counter.className = "message-tools-counter";
