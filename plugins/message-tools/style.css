@@ -1,6 +1,9 @@
+/* The count shares the composer's single line: the anchor class is only set
+   while a count is shown, so the text keeps clear space beside it without an
+   extra row. */
 .message-tools-counter-anchor {
   position: relative;
-  padding-block-end: 16px;
+  padding-inline-end: 28px;
 }
 
 .message-tools-counter {

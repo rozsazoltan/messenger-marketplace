@@ -1,5 +1,5 @@
 /* Char Counter - community plugin.
-   Adds a live character counter under the message composer. */
+   Adds a live character counter in the message composer. */
 
 (() => {
   if (window.__messageToolsStarted) return;

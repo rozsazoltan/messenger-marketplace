@@ -94,10 +94,10 @@
     {
       "id": "message-tools",
       "name": "Char Counter",
-      "description": "Adds a live character counter under the message composer.",
+      "description": "Adds a live character counter in the message composer.",
       "author": "rozsazoltan",
       "official": false,
-      "version": "1.0.3",
+      "version": "1.0.4",
       "style": "plugins/message-tools/style.css",
       "script": "plugins/message-tools/index.js"
     },
