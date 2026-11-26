@@ -97,7 +97,7 @@
       "description": "Adds a live character counter in the message composer.",
       "author": "rozsazoltan",
       "official": false,
-      "version": "1.0.7",
+      "version": "1.0.8",
       "style": "plugins/message-tools/style.css",
       "script": "plugins/message-tools/index.js"
     },
