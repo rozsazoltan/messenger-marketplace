@@ -1,14 +1,22 @@
+/* Positioning context for the count beside the fixed action row. */
+.message-tools-counter-anchor {
+  position: relative;
+}
+
 .message-tools-counter {
-  align-self: flex-end;
-  margin: 0 12px 6px auto;
+  position: absolute;
+  left: 0;
+  width: 6em;
   font-size: 11px;
-  line-height: 1.4;
+  line-height: 11px;
+  text-align: center;
   font-variant-numeric: tabular-nums;
-  color: #8a8d91;
+  color: var(--secondary-text, #8a8d91);
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
-.message-tools-counter[data-state='over'] {
+.message-tools-counter[data-state="over"] {
   color: #e41e3f;
   font-weight: 600;
 }

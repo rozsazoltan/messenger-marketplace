@@ -1,10 +1,27 @@
-/* OLED Black theme tokens. Surface rules ship with the app, not this file. */
+/* OLED Black theme tokens. Surface rules ship with the app, not this file.
+   True black belongs to the base only: every panel, card and field sits a step
+   above it so shapes stay visible, and the shell stays a dim frame. */
 .viewdock-theme {
   --theme-color-scheme: dark;
   --theme-bg: #000000;
-  --theme-surface: #000000;
+  --theme-shell: #161616;
+  --theme-panel: #000000;
+  --theme-surface: #262626;
+  --theme-wallpaper-fade: #262626;
+  --theme-button-background: #060606;
   --theme-text: #f5f5f5;
   --theme-muted: #a6a6a6;
-  --theme-line: #242424;
-  --theme-accent: #8ab4f8;
+  --theme-line: #454545;
+  --theme-accent: #4f82d8;
+  --theme-hover-background: #303030;
+  --theme-hover-text: #f5f5f5;
+  --theme-active-background: #3a3a3a;
+  --theme-active-text: #f5f5f5;
+  --theme-selection-background: #2e2e2e;
+  --theme-selection-text: #f5f5f5;
+  --theme-input-background: #202020;
+  --theme-input-text: #f5f5f5;
+  --theme-input-placeholder: #a6a6a6;
+  --theme-input-border: #4a4a4a;
+  --theme-input-focus: #4f82d8;
 }

@@ -2,19 +2,51 @@
 .viewdock-theme {
   --theme-color-scheme: light;
   --theme-bg: #edf3f8;
+  --theme-shell: #d4d9de;
   --theme-surface: #f9fcff;
+  --theme-wallpaper-fade: #edf3f8;
+  --theme-button-background: #eff4f9;
   --theme-text: #243443;
   --theme-muted: #566d80;
   --theme-line: #cfdae4;
   --theme-accent: #315f87;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #98afc3;
+  --theme-hover-background: #e1ebf3;
+  --theme-hover-text: #243443;
+  --theme-active-background: #d2e2ef;
+  --theme-active-text: #243443;
+  --theme-selection-background: #d9e6f0;
+  --theme-selection-text: #243443;
+  --theme-input-background: #f9fcff;
+  --theme-input-text: #243443;
+  --theme-input-placeholder: #566d80;
+  --theme-input-border: #cfdae4;
+  --theme-input-focus: #315f87;
 }
 
 .viewdock-theme.__fb-dark-mode {
   --theme-color-scheme: dark;
   --theme-bg: #121b24;
+  --theme-shell: #010101;
   --theme-surface: #1b2834;
+  --theme-wallpaper-fade: #1b2834;
+  --theme-button-background: #131d26;
   --theme-text: #e7f0f7;
   --theme-muted: #a1b5c5;
   --theme-line: #334655;
   --theme-accent: #83bde8;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #425f74;
+  --theme-hover-background: #263746;
+  --theme-hover-text: #e7f0f7;
+  --theme-active-background: #30485b;
+  --theme-active-text: #e7f0f7;
+  --theme-selection-background: #2a3e50;
+  --theme-selection-text: #e7f0f7;
+  --theme-input-background: #1b2834;
+  --theme-input-text: #e7f0f7;
+  --theme-input-placeholder: #a1b5c5;
+  --theme-input-border: #334655;
+  --theme-input-focus: #83bde8;
 }

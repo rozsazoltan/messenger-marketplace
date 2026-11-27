@@ -2,19 +2,51 @@
 .viewdock-theme {
   --theme-color-scheme: light;
   --theme-bg: #fff0f4;
+  --theme-shell: #e4d7da;
   --theme-surface: #fffafd;
+  --theme-wallpaper-fade: #fff0f4;
+  --theme-button-background: #fff2f5;
   --theme-text: #3d202c;
   --theme-muted: #805565;
   --theme-line: #f0d1dc;
   --theme-accent: #b52f66;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #d68dab;
+  --theme-hover-background: #f9e3eb;
+  --theme-hover-text: #3d202c;
+  --theme-active-background: #f3d2e0;
+  --theme-active-text: #3d202c;
+  --theme-selection-background: #f7dce6;
+  --theme-selection-text: #3d202c;
+  --theme-input-background: #fffafd;
+  --theme-input-text: #3d202c;
+  --theme-input-placeholder: #805565;
+  --theme-input-border: #f0d1dc;
+  --theme-input-focus: #b52f66;
 }
 
 .viewdock-theme.__fb-dark-mode {
   --theme-color-scheme: dark;
   --theme-bg: #21121a;
+  --theme-shell: #36282f;
   --theme-surface: #301b26;
+  --theme-wallpaper-fade: #301b26;
+  --theme-button-background: #23131c;
   --theme-text: #f8e7ee;
   --theme-muted: #c6a0b0;
   --theme-line: #513044;
   --theme-accent: #f184ae;
+  /* Own-message bubbles need a shade that keeps the theme text readable. */
+  --theme-outgoing-background: #854960;
+  --theme-hover-background: #402232;
+  --theme-hover-text: #f8e7ee;
+  --theme-active-background: #512b3a;
+  --theme-active-text: #f8e7ee;
+  --theme-selection-background: #482638;
+  --theme-selection-text: #f8e7ee;
+  --theme-input-background: #301b26;
+  --theme-input-text: #f8e7ee;
+  --theme-input-placeholder: #c6a0b0;
+  --theme-input-border: #513044;
+  --theme-input-focus: #f184ae;
 }

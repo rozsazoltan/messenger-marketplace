@@ -2,9 +2,23 @@
 .viewdock-theme {
   --theme-color-scheme: dark;
   --theme-bg: #07100b;
+  --theme-shell: #1c2520;
   --theme-surface: #0c1810;
+  --theme-wallpaper-fade: #0c1810;
+  --theme-button-background: #08110c;
   --theme-text: #d6f5df;
   --theme-muted: #91b89d;
   --theme-line: #203b29;
-  --theme-accent: #69e68b;
+  --theme-accent: #2f9155;
+  --theme-hover-background: #14251a;
+  --theme-hover-text: #d6f5df;
+  --theme-active-background: #1c3524;
+  --theme-active-text: #d6f5df;
+  --theme-selection-background: #183022;
+  --theme-selection-text: #d6f5df;
+  --theme-input-background: #0c1810;
+  --theme-input-text: #d6f5df;
+  --theme-input-placeholder: #91b89d;
+  --theme-input-border: #203b29;
+  --theme-input-focus: #2f9155;
 }
